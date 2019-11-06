@@ -61,4 +61,18 @@ server.put('/api/:id', (req, res) => {
     }))
 });
 
+server.delete('/api/:id', (req, res) => {
+    const id = req.params.id;
+
+    db('cars')
+    .where("id", req.params.id)
+    .delete(id)
+    .then(res.status(200).json({
+        Success: "The vehicle was successfully removed."
+    }))
+    .catch(error => res.status(500).json({
+        Error: "That vehicle was not found."
+    }))
+});
+
 module.exports = server;
