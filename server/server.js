@@ -49,4 +49,16 @@ server.post("/", (req, res) => {
     );
 });
 
+server.put('/api/:id', (req, res) => {
+    const modify = req.body;
+    db('cars')
+    .where("id", req.params.id)
+    .update(modify)
+    .then(car =>
+        res.status(200).json({Success: "The vehicle info was updated."}))
+    .catch(error => res.status(500).json({
+        Failure: "The vehicle info was not updated."
+    }))
+});
+
 module.exports = server;
